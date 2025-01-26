@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD to PDF Converter</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Markdown to PDF Converter</h1>
+        
+        <div class="upload-container">
+            <div class="drop-zone" id="dropZone">
+                <span class="drop-zone__prompt">Drop .md file here or click to upload</span>
+                <input type="file" id="fileInput" accept=".md" class="drop-zone__input">
+            </div>
+        </div>
+
+        <div class="preview-container" id="previewContainer" style="display: none;">
+            <h3>Selected File:</h3>
+            <p id="fileName"></p>
+            <button id="convertBtn" class="convert-btn">Convert to PDF</button>
+        </div>
+
+        <div id="loadingSpinner" class="loading" style="display: none;">
+            Converting...
+        </div>
+    </div>
+    <script src="/script.js"></script>
+</body>
+</html>
