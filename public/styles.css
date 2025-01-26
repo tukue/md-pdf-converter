@@ -52,7 +52,7 @@ h1 {
 }
 
 .drop-zone__prompt {
-    color: #666;
+    color: #888;
     font-size: 1.2em;
 }
 
@@ -90,12 +90,12 @@ h1 {
 .loading {
     text-align: center;
     margin-top: 20px;
-    color: #666;
+    color: #888;
     font-style: italic;
 }
 
 #fileName {
     word-break: break-all;
-    color: #666;
+    color: #888;
     margin: 10px 0;
 }
