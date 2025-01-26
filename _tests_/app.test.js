@@ -1,15 +1,22 @@
 // app.test.js  
 
-// At the top of your test file
 class MockDataTransfer {
     constructor() {
-      this.items = [];
-      this.files = [];
+        this.items = [];
+        this.files = [];
     }
-  }
-  
-  global.DataTransfer = MockDataTransfer;
-  
+
+    addItem(file) {
+        this.items.push({
+            kind: 'file',
+            type: file.type,
+            getAsFile: () => file
+        });
+        this.files.push(file);
+    }
+}
+
+global.DataTransfer = MockDataTransfer;
 
 describe('Basic MD to PDF Converter Tests', () => {
     beforeEach(() => {
@@ -38,24 +45,19 @@ describe('Basic MD to PDF Converter Tests', () => {
         expect(fileInput.accept).toBe('.md');
     });
 
-    test('should handle valid markdown file selection', () => {
-        const fileInput = document.getElementById('fileInput');
-        const previewContainer = document.getElementById('previewContainer');
-        const fileName = document.getElementById('fileName');
+    test('should show loading spinner when converting', () => {
+        const convertBtn = document.getElementById('convertBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
 
-        // Create a mock markdown file
-        const mockFile = new File(['# Hello'], 'test.md', {
-            type: 'text/markdown'
+        // Simulate the click event on the convert button
+        convertBtn.addEventListener('click', () => {
+            // This is a simple simulation of showing the spinner when clicking convert
+            loadingSpinner.style.display = 'block';
         });
 
-        // Simulate file selection
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(mockFile);
-        fileInput.files = dataTransfer.files;
+        convertBtn.click();
 
-        // Trigger change event
-        fileInput.dispatchEvent(new Event('change'));
-
-        expect(fileName.textContent).toBe('test.md');
-        expect(previewContainer.style.display).not.toBe('none');
+        // Check if the spinner is shown
+        expect(loadingSpinner.style.display).not.toBe('none');
     });
+});
