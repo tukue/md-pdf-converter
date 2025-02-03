@@ -1,29 +1,25 @@
-// app.test.js  
-
 class MockDataTransfer {
     constructor() {
-        this.items = [];
         this.files = [];
     }
 
     addItem(file) {
-        this.items.push({
-            kind: 'file',
-            type: file.type,
-            getAsFile: () => file
-        });
         this.files.push(file);
+    }
+
+    getFiles() {
+        return this.files;
     }
 }
 
 global.DataTransfer = MockDataTransfer;
 
-describe('Basic MD to PDF Converter Tests', () => {
+describe('Basic MD and DOC to PDF Converter Tests', () => {
     beforeEach(() => {
         // Set up a basic DOM structure before each test
         document.body.innerHTML = `
             <div class="drop-zone" id="dropZone">
-                <input type="file" id="fileInput" accept=".md">
+                <input type="file" id="fileInput" accept=".md,.doc,.docx">
             </div>
             <div id="previewContainer" style="display: none;">
                 <p id="fileName"></p>
@@ -40,9 +36,9 @@ describe('Basic MD to PDF Converter Tests', () => {
         expect(document.getElementById('convertBtn')).toBeTruthy();
     });
 
-    test('should accept only markdown files', () => {
+    test('should accept only markdown and Word files', () => {
         const fileInput = document.getElementById('fileInput');
-        expect(fileInput.accept).toBe('.md');
+        expect(fileInput.accept).toBe('.md,.doc,.docx');
     });
 
     test('should show loading spinner when converting', () => {
