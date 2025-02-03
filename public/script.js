@@ -54,11 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleFiles(e) {
         const file = e.target.files[0];
-        if (file && file.name.endsWith('.md')) {
+        if (file && (file.name.endsWith('.md') || file.name.endsWith('.doc') || file.name.endsWith('.docx'))) {
             fileName.textContent = file.name;
             previewContainer.style.display = 'block';
         } else {
-            alert('Please upload a markdown (.md) file');
+            alert('Please upload a markdown (.md) or Word (.doc, .docx) file');
         }
     }
 
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const formData = new FormData();
-        formData.append('markdown', file);
+        formData.append('document', file);
 
         loadingSpinner.style.display = 'block';
         convertBtn.disabled = true;
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = file.name.replace('.md', '.pdf');
+            a.download = file.name.replace(/\.(md|doc|docx)$/, '.pdf');
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);
