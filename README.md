@@ -1,5 +1,4 @@
-# my-project
-md to pdf converter# my-project
+
 md and doc to pdf converter
 
 ## Overview
